@@ -1,94 +1,175 @@
 @font-face {
-  font-family: "Goyang";
-  src: url("/src/fonts/Goyang.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "Goyang";
+    src: url("/src/fonts/Goyang.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root[color-mode="light"] {
+    --background: #fffffa;
+    --textColor: #121212;
+    --toggleColor: #121212;
+}
+
+:root[color-mode="dark"] {
+    --background: #121212;
+    --textColor: #fffffa;
+    --toggleColor: #fffffa;
 }
 
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--textColor);
 }
 
 body * {
-  font-family: Goyang;
+    font-family: Goyang;
 }
 
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 #App {
-  margin: 1.5em auto;
-  max-width: 1200px;
-  column-gap: 1.5em;
+    margin: 1.5em auto;
+    max-width: 1200px;
+    column-gap: 1.5em;
+}
+
+.Toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    width: 80px;
+    height: 30px;
 }
 
 .SearchResult {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(250px, 1fr));
-  grid-gap: 10px;
+    padding: 0px;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
+    grid-gap: 10px;
 }
 
 .SearchResult img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .SearchResult .item {
-  background-color: #eee;
-  display: inline-block;
-  margin: 0 0 1em;
-  width: 100%;
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}
+
+.Input {
+    display: flex;
+    flex-direction: row;
 }
 
 .SearchInput {
-  width: 100%;
-  font-size: 40px;
-  padding: 10px 15px;
+    width: 100%;
+    font-size: 40px;
+    padding: 10px 15px;
+}
+
+.RandomButton {
+    margin: 5px;
+    width: 15%;
+    font-size: 120%;
+    cursor: pointer;
+}
+
+.Loading {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 50%);
+    text-align: center;
+}
+
+.Loading p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .ImageInfo {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .ImageInfo .title {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .ImageInfo .title,
 .ImageInfo .description {
-  padding: 5px;
+    padding: 5px;
 }
 
 .ImageInfo .content-wrapper {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 5px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background);
+    border: 1px solid #eee;
+    border-radius: 5px;
 }
 
 .ImageInfo .content-wrapper img {
-  width: 100%;
+    width: 100%;
 }
 
-/* dark mode 처리
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #000;
-    color: white;
-  }
+@media screen and (max-width: 992px) {
+    .SearchResult {
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+    }
 }
-*?
+
+@media screen and (max-width: 768px) {
+    .SearchResult {
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+    }
+
+    .ImageInfo .content-wrapper {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .SearchResult {
+        grid-template-columns: repeat(1, minmax(200px, 1fr));
+    }
+}
+
+/* dark mode 처리 */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #fffffa;
+    }
+}
