@@ -13,13 +13,19 @@ class SearchInput {
         $searchInput.className = "SearchInput";
         $wrapper.appendChild($searchInput);
 
-        $searchInput.addEventListener("keyup", (e) => {
-            if (e.keyCode === 13) {
+        // 검색 & 검색 단어 저장
+        $searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
                 // keyCode 13 = Enter
-                onSearch(e.target.value); // keyword
+                // 키워드 서치
+                onSearch(e.target.value);
+
+                // 최근 키워드 저장
+                this.KeywordHistory.addKeyword(e.target.value);
             }
         });
 
+        // 랜덤 고양이 출력
         const $randomButton = document.createElement("button");
         this.$randomButton = $randomButton;
         this.$randomButton.className = "RandomButton";
@@ -29,6 +35,11 @@ class SearchInput {
 
         $randomButton.addEventListener("click", (e) => {
             onRandomSearch();
+        });
+
+        this.KeywordHistory = new KeywordHistory({
+            $target,
+            onSearch,
         });
     }
     render() {}
