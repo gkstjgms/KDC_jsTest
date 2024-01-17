@@ -113,6 +113,15 @@ input[type="checkbox"] {
     transform: translate(-50%, -50%);
 }
 
+.Empty {
+    text-align: center;
+    font-size: 30px;
+    padding: 100px 0;
+}
+
+.Empty p {
+}
+
 .noItem p {
     font-size: 40px;
     text-align: center;

@@ -1,3 +1,5 @@
+import api from "../api.js";
+
 class ImageInfo {
     $imageInfo = null;
     data = null;
@@ -25,16 +27,16 @@ class ImageInfo {
         });
     }
 
-    // async/await 추가 구현
-    showDetail(data) {
+    async showDetail(data) {
         // 상세 정보 요청
-        api.fetchCatsDetail(data.cat.id).then(({ data }) => {
+        const detailInfo = await api.fetchCatsDetail(data.cat.id);
+        if (detailInfo) {
             // 정보를 업데이트
             this.setState({
                 visible: true,
-                cat: data,
+                cat: detailInfo.data,
             });
-        });
+        }
     }
 
     render() {
@@ -72,3 +74,5 @@ class ImageInfo {
         }
     }
 }
+
+export default ImageInfo;

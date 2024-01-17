@@ -1,4 +1,4 @@
-const TEMPLATE = '<input type="text">';
+import KeywordHistory from "./KeywordHistory.js";
 
 class SearchInput {
     constructor({ $target, onSearch, onRandomSearch }) {
@@ -44,3 +44,5 @@ class SearchInput {
     }
     render() {}
 }
+
+export default SearchInput;
