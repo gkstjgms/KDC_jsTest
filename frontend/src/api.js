@@ -1,39 +1,71 @@
 import config from "./config.js";
 import error from "./error.js";
+
 const { API_ENDPOINT } = config;
 const { REQUEST_ERROR } = error;
 
+/**
+ *
+ * @param url key url
+ * @returns 결과의 json 값
+ */
 const request = async (url) => {
+    // 오류 감지
     try {
-        const result = await fetch(url);
+        const result = await fetch(`${API_ENDPOINT}/api/cats/${url}`);
         if (result.status === 200) {
-            // status 200 성공의 경우
+            // status 200 = 성공의 경우
             return result.json();
         } else {
             throw REQUEST_ERROR[result.status];
         }
     } catch (error) {
-        alert(error.msg);
+        console.log(error.msg);
         return { data: null };
     }
 };
 
 const api = {
-    // data 가져오는 api
+    /** limit 없는 검색
+     *
+     * @param keyword 검색하는 단어
+     * @returns items data
+     */
     fetchCats: (keyword) => {
-        return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
+        return request(`search?q=${keyword}`);
     },
-    // 다음 페이지 로딩 api
-    fetchCatsPage: (keyword, page) => {
-        return request(`${API_ENDPOINT}/api/cats/search?q=${keyword}&page=${keyword}`);
+    /** limit 있는 검색
+     *
+     * @param keyword 검색하는 단어
+     * @param limit 최대 노출 개수
+     * @returns items data
+     */
+    fetchCatsWithLimit: (keyword, limit) => {
+        return request(`search?q=${keyword}&limit=${limit}`);
     },
-    // 랜덤 data 가져오는 api
+    /** 랜덤 data 출력
+     *
+     * @returns random items data
+     */
     fetchRandomCats: () => {
-        return request(`${API_ENDPOINT}/api/cats/random50`);
+        return request(`random50`);
     },
-    // id로 detail 가져오는 api
+    /** id에 해당하는 detail 반환
+     *
+     * @param id
+     * @returns detail data
+     */
     fetchCatsDetail: (id) => {
-        return request(`${API_ENDPOINT}/api/cats/${id}`);
+        return request(`${id}`);
+    },
+    /** 다음 페이지 로딩
+     *
+     * @param keyword 검색하는 단어
+     * @param page 필요 페이지
+     * @returns items data
+     */
+    fetchCatsPage: (keyword, page) => {
+        return request(`search?q=${keyword}&page=${page}`);
     },
 };
 

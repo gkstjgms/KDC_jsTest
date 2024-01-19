@@ -15,8 +15,17 @@ class ImageInfo {
         this.render();
     }
 
+    setFade(visible) {
+        if (visible) {
+            this.$imageInfo.classList.add("show");
+        } else {
+            this.$imageInfo.classList.remove("show");
+        }
+    }
+
     setState(nextData) {
         this.data = nextData;
+        this.setFade(nextData.visible);
         this.render();
     }
 
@@ -44,21 +53,21 @@ class ImageInfo {
             const { name, url, temperament, origin } = this.data.cat;
 
             this.$imageInfo.innerHTML = `
-        <div class="content-wrapper">
-          <div class="title">
-            <span>${name}</span>
-            <div class="close">X</div>
-          </div>
-          <img src="${url}" alt="${name}"/>        
-          <div class="description">
-            <div>성격: ${temperament}</div>
-            <div>태생: ${origin}</div>
-          </div>
-        </div>`;
-            this.$imageInfo.style.display = "block";
+            <div class="content-wrapper">
+                <div class="title">
+                    <span>${name}</span>
+                    <div class="close">X</div>
+                </div>
+                <img src="${url}" alt="${name}"/>        
+                <div class="description">
+                    <div>성격: ${temperament}</div>
+                    <div>태생: ${origin}</div>
+                </div>
+            </div>`;
+            // this.$imageInfo.style.display = "block";
 
             this.$imageInfo.addEventListener("click", (e) => {
-                if (e.target.className === "ImageInfo" || e.target.className === "close") {
+                if (e.target.className === "ImageInfo show" || e.target.className === "close") {
                     this.closeImageInfo();
                 }
             });
@@ -70,7 +79,7 @@ class ImageInfo {
                 }
             });
         } else {
-            this.$imageInfo.style.display = "none";
+            // this.$imageInfo.style.display = "none";
         }
     }
 }

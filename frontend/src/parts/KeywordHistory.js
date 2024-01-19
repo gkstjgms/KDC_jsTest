@@ -16,7 +16,6 @@ class KeywordHistory {
     }
 
     // 로컬 스트로지
-    // let dummy = ["아", "cat"];
     init() {
         // key
         const data = this.getHistory();
@@ -41,7 +40,7 @@ class KeywordHistory {
     bindEvent() {
         this.$keywordHistory.querySelectorAll(`li button`).forEach(($item, index) => {
             $item.addEventListener("click", () => {
-                this.onSearch(this.data[index]);
+                this.onSearch(this.data[index], 0);
             });
         });
     }

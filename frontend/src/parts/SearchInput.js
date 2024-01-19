@@ -18,12 +18,27 @@ class SearchInput {
             if (e.key === "Enter") {
                 // keyCode 13 = Enter
                 // 키워드 서치
-                onSearch(e.target.value);
+                onSearch(e.target.value, this.$limitCount.value);
 
                 // 최근 키워드 저장
                 this.KeywordHistory.addKeyword(e.target.value);
             }
         });
+
+        // 셀렉트 UI
+        const $limitCount = document.createElement("select");
+        this.$limitCount = $limitCount;
+        this.$limitCount.classList = "LimitCount";
+
+        const LimitCountOptions = [10, 25, 50];
+        LimitCountOptions.map((option) => {
+            let $option = document.createElement("option");
+            $option.value = option;
+            $option.textContent = `${option}개`;
+            $limitCount.appendChild($option);
+        });
+
+        $wrapper.appendChild($limitCount);
 
         // 랜덤 고양이 출력
         const $randomButton = document.createElement("button");
@@ -38,7 +53,7 @@ class SearchInput {
         });
 
         this.KeywordHistory = new KeywordHistory({
-            $target,
+            $target: $wrapper,
             onSearch,
         });
     }
